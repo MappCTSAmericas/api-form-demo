@@ -46,7 +46,7 @@ An initial API call is made on page load to fetch a list of prepared messages fr
 
 ```
 # Request (GET)
-https://sslc.teradatadmc.com/[dmc\_instance]/api/rest/v2/group/getPreparedMessages?groupId=[test\_group\_id]
+https://sslc.teradatadmc.com/[dmc_instance]/api/rest/v2/group/getPreparedMessages?groupId=[test_group_id]
 
 # Response
 [ ... message ids from your test group ... ]
@@ -56,7 +56,7 @@ The form script then iterates through the returned array to get personalizations
 
 ```
 # Request (GET)
-https://sslc.teradatadmc.com/[dmc\_instance]/api/rest/v2/message/getUsedPersonalizations?messageId=[message\_id]
+https://sslc.teradatadmc.com/[dmc_instance]/api/rest/v2/message/getUsedPersonalizations?messageId=[message_id]
 
 # Response
 ["user.CustomAttribute.TierCode","user.LastName","user.CustomAttribute.LyltyMbrNum","user.FirstName","user.CustomAttribute.Points"]
@@ -65,7 +65,7 @@ https://sslc.teradatadmc.com/[dmc\_instance]/api/rest/v2/message/getUsedPersonal
 During form construction, each returned attribute is stripped of its prefixes to be used as personalization tokens. The following example is written in PHP and will vary from language to language:
 
 ```
-foreach ( json\_decode($field\_json) as $f ) {
+foreach ( json_decode($field_json) as $f ) {
     // break the attributes into array items separated by '.'
     $raw = explode( '.', $f );
 
@@ -92,13 +92,13 @@ Additionally, a final hard-coded field is provided to set user.CustomAttribute[�
 
 ## Part 3: Form Handling
 
-When the form is filled in and submitted, the handler instantiates itself and uses the hidden `'fields'` field to determine which fields to look for, then iterates through `$\_POST` fields to gather personalization data from the form submission. (see handler.php[69-90]).
+When the form is filled in and submitted, the handler instantiates itself and uses the hidden `'fields'` field to determine which fields to look for, then iterates through `$_POST` fields to gather personalization data from the form submission. (see handler.php[69-90]).
 
 The handler then updates the surrogate profile with the value provided by the ’AlternateEmail’ form field (see handler.php[92], api.php[89]).
 
 ```
 # Request (POST)
-https://sslc.teradatadmc.com/[dmc\_instance]/api/rest/v2/user/updateProfile?userId=[surrogate\_id]
+https://sslc.teradatadmc.com/[dmc_instance]/api/rest/v2/user/updateProfile?userId=[surrogate_id]
 
 # Message Body
 [{"name":"user.CustomAttribute.AlternateEmail","value":"nick.silva@teradata.com"}]
@@ -110,7 +110,7 @@ Once the surrogate profile is successfully updated with the correct delivery add
 
 ```
 # Request (POST)
-https://sslc.teradatadmc.com/[dmc\_instance]/api/rest/v2/message/sendSingle?messageId=[message\_id]&recipientId=[surrogate\_id]
+https://sslc.teradatadmc.com/[dmc_instance]/api/rest/v2/message/sendSingle?messageId=[message_id]&recipientId=[surrogate_id]
 
 # Message Body
 {"parameters":[{"name":"TierCode","value":"TestTier"},{"name":"LastName","value":"TestLastName"},{"name":"LyltyMbrNum","value":"TestLyltyMbrNum"},{"name":"FirstName","value":"TestFirstName"},{"name":"Points","value":"TestPoints"}]}
